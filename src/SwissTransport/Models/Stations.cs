@@ -1,7 +1,7 @@
 ﻿namespace SwissTransport.Models
 {
     using System.Collections.Generic;
-
+    using System.Collections.ObjectModel;
     using Newtonsoft.Json;
 
     public class Coordinate
@@ -29,6 +29,6 @@
     public class Stations
     {
         [JsonProperty("stations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Station> StationList { get; set; }
+        public ObservableCollection<Station> StationList { get; set; }
     }
 }

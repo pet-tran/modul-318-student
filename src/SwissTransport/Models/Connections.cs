@@ -2,12 +2,12 @@ namespace SwissTransport.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.Collections.ObjectModel;
     using Newtonsoft.Json;
 
     public class Connections
     {
-        [JsonProperty("connections")] public List<Connection> ConnectionList { get; set; }
+        [JsonProperty("connections")] public ObservableCollection<Connection> ConnectionList { get; set; }
     }
 
     public class Connection

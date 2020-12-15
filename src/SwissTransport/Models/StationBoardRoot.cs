@@ -2,14 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-
+    using System.Collections.ObjectModel;
     using Newtonsoft.Json;
 
     public class StationBoardRoot
     {
         [JsonProperty("Station")] public Station Station { get; set; }
 
-        [JsonProperty("stationboard")] public List<StationBoard> Entries { get; set; }
+        [JsonProperty("stationboard")] public ObservableCollection<StationBoard> Entries { get; set; }
     }
 
     public class StationBoard
