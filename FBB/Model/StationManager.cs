@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Windows.Input;
 using FBB.Library;
 using SwissTransport.Core;
 using SwissTransport.Models;
+using Xceed.Wpf.Toolkit;
 
 namespace FBB.Model
 {
@@ -20,6 +22,10 @@ namespace FBB.Model
         private ITransport _transport;
 
         private Stations _stations;
+
+        private Station _selectedStation;
+
+        private StationBoardRoot _stationBoardRoot;
 
         #endregion
 
@@ -44,9 +50,46 @@ namespace FBB.Model
             {
                 if (_stations is null)
                 {
-                    _stations = new Stations();
+                    _stations = new Stations
+                    {
+                        StationList = new ObservableCollection<Station>()
+                    };
                 }
                 return _stations;
+            }
+        }
+
+        public Station SelectedStation
+        {
+            get
+            {
+                return _selectedStation;
+            }
+            set
+            {
+                _selectedStation = value;
+                GetStationBoard();
+                OnPropertyChanged(nameof(SelectedStation));
+            }
+        }
+
+        public StationBoardRoot StationBoardRoot
+        {
+            get
+            {
+                if (_stationBoardRoot is null)
+                {
+                    _stationBoardRoot = new StationBoardRoot
+                    {
+                        Entries = new ObservableCollection<StationBoard>()
+                    };
+                }
+                return _stationBoardRoot;
+            }
+            set
+            {
+                _stationBoardRoot = value;
+                OnPropertyChanged(nameof(StationBoardRoot));
             }
         }
 
@@ -81,13 +124,36 @@ namespace FBB.Model
         }
         private void SearchStation()
         {
-            foreach (Station station in Transport.GetStations(StationName).StationList)
-                Stations.StationList.Add(station);
+            this.Stations.StationList.Clear();
+
+            Stations getStations = Transport.GetStations(StationName);
+            if (getStations.StationList.Count > 0)
+            {
+                foreach (Station station in getStations.StationList)
+                    Stations.StationList.Add(station);
+            }
+            else
+            {
+                MessageBox.Show("Es wurden keine Elemente gefunden.");
+            }
         }
 
         private bool CanSearchStation()
         {
             return !string.IsNullOrWhiteSpace(StationName);
+        }
+
+        private void GetStationBoard()
+        {
+            this.StationBoardRoot.Entries.Clear();
+            StationBoardRoot getStationBoard = Transport.GetStationBoard(SelectedStation.Name, SelectedStation.Id);
+            if (getStationBoard.Entries.Count > 0)
+            {
+                foreach (StationBoard entry in getStationBoard.Entries)
+                {
+                    this.StationBoardRoot.Entries.Add(entry);
+                }
+            }
         }
 
         #endregion

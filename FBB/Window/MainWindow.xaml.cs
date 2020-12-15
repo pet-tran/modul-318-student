@@ -22,7 +22,7 @@ namespace FBB
     {
         public MainWindow()
         {
-            DataContext = new Model.TransportViewModel();
+            DataContext = new Model.FBBModules();
 
             InitializeComponent();
         }

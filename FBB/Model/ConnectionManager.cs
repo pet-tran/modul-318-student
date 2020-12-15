@@ -11,7 +11,7 @@ using SwissTransport.Models;
 
 namespace FBB.Model
 {
-    public class TransportViewModel : NotifyPropertyChanged
+    public class ConnectionManager : NotifyPropertyChanged
     {
 
         #region Fields
@@ -76,8 +76,10 @@ namespace FBB.Model
             {
                 if (_connections is null)
                 {
-                    _connections = new Connections();
-                    _connections.ConnectionList = new ObservableCollection<Connection>();
+                    _connections = new Connections
+                    {
+                        ConnectionList = new ObservableCollection<Connection>()
+                    };
                 }
                 return _connections;
             }
@@ -133,6 +135,7 @@ namespace FBB.Model
         private void SearchConnection()
         {
             Connections.ConnectionList.Clear();
+
             foreach (Connection connection in Transport.GetConnections(Start, Destination).ConnectionList)
                 Connections.ConnectionList.Add(connection);
         }
