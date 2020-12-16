@@ -12,7 +12,7 @@ using Xceed.Wpf.Toolkit;
 
 namespace FBB.Model
 {
-    class StationManager : NotifyPropertyChanged
+    public class StationManager : NotifyPropertyChanged
     {
 
         #region Fields

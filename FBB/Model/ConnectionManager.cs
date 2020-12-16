@@ -11,7 +11,7 @@ using SwissTransport.Models;
 
 namespace FBB.Model
 {
-    public class ConnectionManager : NotifyPropertyChanged
+    public class ConnectionManager : StationManager
     {
 
         #region Fields
@@ -20,13 +20,13 @@ namespace FBB.Model
 
         private string _destination;
 
-        private ITransport _transport;
-
         private Connections _connections;
 
         private DateTime _from = DateTime.Now;
 
         private DateTime _to = DateTime.Now;
+
+        private Connection _selectedConnection;
 
         #endregion
 
@@ -55,18 +55,6 @@ namespace FBB.Model
             {
                 _destination = value;
                 OnPropertyChanged(nameof(Destination));
-            }
-        }
-
-        public ITransport Transport
-        {
-            get
-            {
-                if (_transport is null)
-                {
-                    _transport = new Transport();
-                }
-                return _transport;
             }
         }
 
@@ -113,6 +101,25 @@ namespace FBB.Model
             {
                 _to = value;
                 OnPropertyChanged(nameof(To));
+            }
+        }
+
+        public Connection SelectedConnection
+        {
+            get
+            {
+                return _selectedConnection;
+            }
+            set
+            {
+                _selectedConnection = value;
+
+                if (SelectedConnection != null)
+                {
+                    SelectedStation = SelectedConnection.To.Station;
+                }
+
+                OnPropertyChanged(nameof(SelectedConnection));
             }
         }
 
