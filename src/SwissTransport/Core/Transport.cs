@@ -41,7 +41,7 @@
             return HttpClient.GetObject(uri, JsonConvert.DeserializeObject<StationBoardRoot>);
         }
 
-        public Connections GetConnections(string fromStation, string toStation)
+        public Connections GetConnections(string fromStation, string toStation, DateTime from, DateTime to)
         {
             if (string.IsNullOrEmpty(fromStation))
             {

@@ -62,8 +62,8 @@
                             <TextBox Text="{Binding Start}" Grid.Column="0" Height="30" Margin="5" VerticalContentAlignment="Center" />
                             <TextBox Text="{Binding Destination}" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
 
-                            <xctk:TimePicker Text="{Binding From}" ShowButtonSpinner="False" Grid.Column="0" Grid.Row="1" Height="30" Margin="5" VerticalContentAlignment="Center"/>
-                            <xctk:TimePicker Text="{Binding To}" ShowButtonSpinner="False" Grid.Column="1" Grid.Row="1" Margin="5" VerticalContentAlignment="Center"/>
+                            <xctk:TimePicker Text="{Binding From}" Value="{Binding From}" Format="Custom" FormatString="hh:mm tt" CultureInfo="en-US" ShowButtonSpinner="False" Grid.Column="0" Grid.Row="1" Height="30" Margin="5" VerticalContentAlignment="Center"/>
+                            <xctk:TimePicker Text="{Binding To}" Value="{Binding To}" ShowButtonSpinner="False" Grid.Column="1" CultureInfo="en-US"  Grid.Row="1" Margin="5" VerticalContentAlignment="Center"/>
 
                             <Button Content="Search" Grid.Column="2" Margin="5" Command="{Binding CommandSearchConnections}" VerticalContentAlignment="Center"  IsDefault="True"/>
 
@@ -75,10 +75,10 @@
                     <DataGrid Grid.Row="1" Margin="5" ItemsSource="{Binding Connections.ConnectionList}" SelectedItem="{Binding SelectedConnection}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Duration" Binding="{Binding Duration}"/>
-                            <DataGridTextColumn Header="Station Name" Binding="{Binding From.Station.Name}"/>
-                            <DataGridTextColumn Header="Start Departure" Binding="{Binding From.Departure, StringFormat='hh:mm:ss'}"/>
-                            <DataGridTextColumn Header="To" Binding="{Binding To.Station.Name}"/>
-                            <DataGridTextColumn Header="Destination Departure" Binding="{Binding To.Arrival, StringFormat='hh:mm:ss'}"/>
+                            <DataGridTextColumn Header="Station From" Binding="{Binding From.Station.Name}"/>
+                            <DataGridTextColumn Header="Station To" Binding="{Binding To.Station.Name}"/>
+                            <DataGridTextColumn Header="Start Departure" Binding="{Binding From.Departure, StringFormat='hh:mm:ss tt'}"/>
+                            <DataGridTextColumn Header="Destination Departure" Binding="{Binding To.Arrival, StringFormat='hh:mm:ss tt'}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

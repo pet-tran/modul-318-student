@@ -4,6 +4,8 @@
 
     using SwissTransport.Core;
 
+    using System;
+
     /// <summary>
     /// The Swiss Transport API tests.
     /// </summary>
@@ -34,7 +36,7 @@
         public void Connections()
         {
             testee = new Transport();
-            var connections = this.testee.GetConnections("Sursee", "Luzern");
+            var connections = this.testee.GetConnections("Sursee", "Luzern", DateTime.Today, DateTime.Now);
 
             Assert.IsNotNull(connections);
         }

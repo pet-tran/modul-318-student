@@ -34,6 +34,9 @@
 
         public TObject GetObject<TObject>(Uri uri, Func<string, TObject> converter)
         {
+            try
+            {
+
             if (uri is null)
             {
                 throw new ArgumentNullException(nameof(uri));
@@ -45,6 +48,11 @@
             }
 
             return converter.Invoke(GetString(uri));
+            }
+            catch
+            {
+                return default;
+            }
         }
     }
 }
