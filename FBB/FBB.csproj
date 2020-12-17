@@ -48,6 +48,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -94,6 +97,7 @@
     <Compile Include="Library\StationSuggestion.cs" />
     <Compile Include="Model\FBBModules.cs" />
     <Compile Include="Model\StationManager.cs" />
+    <Compile Include="WPF\DateConverter.cs" />
     <Compile Include="WPF\Window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

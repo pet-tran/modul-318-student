@@ -7,6 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:c="clr-namespace:FBB.WPF"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -15,6 +16,9 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="FBB" Height="600" Width="1200" x:Name="Window">
+    <Window.Resources>
+        <c:DateConverter x:Key="DateCoverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -23,7 +27,7 @@
 
         <Canvas Background="#FF673AB7" Height="40">
             <Grid>
-                <Label Content="Insert cool name here:" FontSize="20" VerticalContentAlignment="Center" Margin="5" Foreground="White"/>
+                <Label Content="FBB" FontSize="20" VerticalContentAlignment="Center" Margin="5" Foreground="White"/>
             </Grid>
         </Canvas>
 
@@ -33,6 +37,7 @@
                 <Grid>
 
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
@@ -57,13 +62,20 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
                             <ComboBox ItemsSource="{Binding StartSuggestion}" Text="{Binding Start}" SelectedItem="{Binding SelectedStart}" IsEditable="True" Margin="5" Height="30"/>
                             <ComboBox ItemsSource="{Binding DestinationSuggestion}" Text="{Binding Destination}" SelectedItem="{Binding SelectedDestination}" IsEditable="True" Grid.Column="1" Margin="5"/>
 
-                            <xctk:TimePicker Text="{Binding From}" Value="{Binding From}" Format="Custom" FormatString="hh:mm tt" CultureInfo="en-US" ShowButtonSpinner="False" Grid.Column="0" Grid.Row="1" Height="30" Margin="5" VerticalContentAlignment="Center"/>
-                            <xctk:TimePicker Text="{Binding To}" Value="{Binding To}" ShowButtonSpinner="False" Grid.Column="1" CultureInfo="en-US"  Grid.Row="1" Margin="5" VerticalContentAlignment="Center"/>
+                            <DatePicker Grid.Row="1" Grid.Column="0" Margin="5" SelectedDate="{Binding From, Converter={StaticResource DateCoverter}}"/>
+                            <DatePicker Grid.Row="1" Grid.Column="1" Margin="5" SelectedDate="{Binding To, Converter={StaticResource DateCoverter}}"/>
+
+                            <xctk:TimePicker Text="{Binding From}" Value="{Binding From}" Format="Custom" FormatString="hh:mm tt" CultureInfo="en-US" ShowButtonSpinner="False" 
+                                             Grid.Column="0" Grid.Row="2" Height="30" Margin="5" VerticalContentAlignment="Center"/>
+
+                            <xctk:TimePicker Text="{Binding To}" Value="{Binding To}" ShowButtonSpinner="False" Grid.Column="1" CultureInfo="en-US" 
+                                             Grid.Row="2" Margin="5" VerticalContentAlignment="Center"/>
 
                             <Button Content="Search" Grid.Column="2" Margin="5" Command="{Binding CommandSearchConnections}" VerticalContentAlignment="Center"  IsDefault="True"/>
 
@@ -72,7 +84,9 @@
 
                     </Grid>
 
-                    <DataGrid Grid.Row="1" Margin="5" ItemsSource="{Binding Connections.ConnectionList}" SelectedItem="{Binding SelectedConnection}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                    <GridSplitter Grid.Row="1" Height="5" ResizeDirection="Auto" HorizontalAlignment="Stretch" Background="LightGray" Margin="5"/>
+
+                    <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding Connections.ConnectionList}" SelectedItem="{Binding SelectedConnection}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Duration" Binding="{Binding Duration}"/>
                             <DataGridTextColumn Header="Station From" Binding="{Binding From.Station.Name}"/>
@@ -82,17 +96,18 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <GridSplitter Grid.Row="2" Height="5" ResizeDirection="Auto" HorizontalAlignment="Stretch" Background="LightGray" Margin="5"/>
+                    <GridSplitter Grid.Row="3" Height="5" ResizeDirection="Auto" HorizontalAlignment="Stretch" Background="LightGray" Margin="5"/>
 
-                    <DataGrid ItemsSource="{Binding StationBoardRoot.Entries}" Grid.Row="3" Margin="5" CanUserAddRows="False" CanUserDeleteRows="False"/>
+                    <DataGrid ItemsSource="{Binding StationBoardRoot.Entries}" Grid.Row="4" Margin="5" CanUserAddRows="False" CanUserDeleteRows="False"/>
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Stations" DataContext="{Binding Station}">
+            <TabItem Header="Stationboard" DataContext="{Binding Station}">
                 <Grid>
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
@@ -103,17 +118,18 @@
 
                     <ComboBox ItemsSource="{Binding StationSuggestion}" SelectedItem="{Binding SelectedSuggestion}" Text="{Binding StationName}" Height="30" Margin="5" IsEditable="True"/>
 
-                    <Button Content="Search" Command="{Binding CommandSearchStation}" Grid.Column="1" Margin="5" IsDefault="True"/>
+                    <GridSplitter Grid.Column="1" Grid.RowSpan="2" Width="5" ResizeDirection="Auto" ResizeBehavior="PreviousAndNext" VerticalAlignment="Stretch" Background="LightGray" Margin="5"/>
+
+                    <Button Content="Search" Command="{Binding CommandSearchStation}" Grid.Column="2" Margin="5" IsDefault="True"/>
 
                     <DataGrid ItemsSource="{Binding Stations.StationList}" SelectedItem="{Binding SelectedStation}" Grid.Row="1" Margin="5" 
                               CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    
-                    <DataGrid ItemsSource="{Binding StationBoardRoot.Entries}" Grid.Row="1" Grid.Column="1" Margin="5" 
+
+                    <DataGrid ItemsSource="{Binding StationBoardRoot.Entries}" Grid.Row="1" Grid.Column="2" Margin="5" 
                               CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -124,6 +140,8 @@
                             <DataGridTextColumn Header="Departure" Binding="{Binding Stop.Departure, StringFormat='hh:mm tt'}"/>
                         </DataGrid.Columns>
                     </DataGrid>
+
+
                 </Grid>
             </TabItem>
         </TabControl>
