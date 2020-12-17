@@ -40,5 +40,6 @@
 
             Assert.IsNotNull(connections);
         }
+
     }
 }
