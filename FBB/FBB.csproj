@@ -81,7 +81,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Window\MainWindow.xaml">
+    <Page Include="WPF\Window\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -91,9 +91,10 @@
     </Compile>
     <Compile Include="Library\NotifyPropertyChanged.cs" />
     <Compile Include="Library\RelayCommand.cs" />
+    <Compile Include="Library\StationSuggestion.cs" />
     <Compile Include="Model\FBBModules.cs" />
     <Compile Include="Model\StationManager.cs" />
-    <Compile Include="Window\MainWindow.xaml.cs">
+    <Compile Include="WPF\Window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

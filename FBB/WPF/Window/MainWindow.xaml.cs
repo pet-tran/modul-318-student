@@ -25,6 +25,8 @@ namespace FBB
             DataContext = new Model.FBBModules();
 
             InitializeComponent();
+
         }
+
     }
 }

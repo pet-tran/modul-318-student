@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FBB.Model
 {
-    class FBBModules
+    public class FBBModules
     {
 
         private ConnectionManager _connectionManager;

@@ -28,6 +28,14 @@ namespace FBB.Model
 
         private Connection _selectedConnection;
 
+        private ObservableCollection<string> _startSuggestion = new ObservableCollection<string>();
+
+        private ObservableCollection<string> _destinationSuggestion = new ObservableCollection<string>();
+
+        private string _selectedStart;
+
+        private string _selectedDestination;
+
         #endregion
 
         #region Properties
@@ -41,7 +49,36 @@ namespace FBB.Model
             set
             {
                 _start = value;
+                if (!string.IsNullOrWhiteSpace(Start))
+                {
+                    StartSuggestion = Library.StationSuggestion.FindSuggestion(Start);
+                }
                 OnPropertyChanged(nameof(Start));
+            }
+        }
+
+        public ObservableCollection<string> StartSuggestion
+        {
+            get
+            {
+                return _startSuggestion;
+            }
+            set
+            {
+                _startSuggestion = value;
+                OnPropertyChanged(nameof(StartSuggestion));
+            }
+        }
+        public string SelectedStart
+        {
+            get
+            {
+                return _selectedStart;
+            }
+            set
+            {
+                _selectedStart = value;
+                OnPropertyChanged(nameof(SelectedStart));
             }
         }
 
@@ -54,7 +91,37 @@ namespace FBB.Model
             set
             {
                 _destination = value;
+                if (!string.IsNullOrWhiteSpace(Destination))
+                {
+                    DestinationSuggestion = Library.StationSuggestion.FindSuggestion(Destination);
+                }
                 OnPropertyChanged(nameof(Destination));
+            }
+        }
+
+        public ObservableCollection<string> DestinationSuggestion
+        {
+            get
+            {
+                return _destinationSuggestion;
+            }
+            set
+            {
+                _destinationSuggestion = value;
+                OnPropertyChanged(nameof(DestinationSuggestion));
+            }
+        }
+
+        public string SelectedDestination
+        {
+            get
+            {
+                return _selectedDestination;
+            }
+            set
+            {
+                _selectedDestination = value;
+                OnPropertyChanged(nameof(SelectedDestination));
             }
         }
 

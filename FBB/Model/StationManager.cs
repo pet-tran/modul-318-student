@@ -27,6 +27,10 @@ namespace FBB.Model
 
         private StationBoardRoot _stationBoardRoot;
 
+        private ObservableCollection<string> _startSuggestion = new ObservableCollection<string>();
+
+        private string _selectedSuggestion;
+
         #endregion
 
         #region Properties
@@ -40,6 +44,11 @@ namespace FBB.Model
             set
             {
                 _stationName = value;
+                if (!string.IsNullOrWhiteSpace(StationName))
+                {
+                   StationSuggestion = Library.StationSuggestion.FindSuggestion(StationName);
+
+                }
                 OnPropertyChanged(nameof(StationName));
             }
         }
@@ -56,6 +65,31 @@ namespace FBB.Model
                     };
                 }
                 return _stations;
+            }
+        }
+
+        public ObservableCollection<string> StationSuggestion
+        {
+            get
+            {
+                return _startSuggestion;
+            }
+            set
+            {
+                _startSuggestion = value;
+                OnPropertyChanged(nameof(StationSuggestion));
+            }
+        }
+        public string SelectedSuggestion
+        {
+            get
+            {
+                return _selectedSuggestion;
+            }
+            set
+            {
+                _selectedSuggestion = value;
+                OnPropertyChanged(nameof(SelectedSuggestion));
             }
         }
 
