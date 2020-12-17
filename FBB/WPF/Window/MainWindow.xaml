@@ -77,16 +77,17 @@
                             <xctk:TimePicker Text="{Binding To}" Value="{Binding To}" ShowButtonSpinner="False" Grid.Column="1" CultureInfo="en-US" 
                                              Grid.Row="2" Margin="5" VerticalContentAlignment="Center"/>
 
-                            <Button Content="Search" Grid.Column="2" Margin="5" Command="{Binding CommandSearchConnections}" VerticalContentAlignment="Center"  IsDefault="True"/>
+                            <Button Content="Search" Grid.Column="2" Margin="5" Command="{Binding CommandSearchConnections}" VerticalContentAlignment="Center" IsDefault="True"/>
 
 
                         </Grid>
 
                     </Grid>
 
-                    <GridSplitter Grid.Row="1" Height="5" ResizeDirection="Auto" HorizontalAlignment="Stretch" Background="LightGray" Margin="5"/>
+                    <GridSplitter Grid.Row="1" Height="5" ResizeDirection="Auto" HorizontalAlignment="Stretch" Background="LightGray" Margin="5" IsTabStop="False"/>
 
-                    <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding Connections.ConnectionList}" SelectedItem="{Binding SelectedConnection}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding Connections.ConnectionList}" SelectedItem="{Binding SelectedConnection}" 
+                              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True" IsTabStop="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Duration" Binding="{Binding Duration}"/>
                             <DataGridTextColumn Header="Station From" Binding="{Binding From.Station.Name}"/>
@@ -96,9 +97,19 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <GridSplitter Grid.Row="3" Height="5" ResizeDirection="Auto" HorizontalAlignment="Stretch" Background="LightGray" Margin="5"/>
+                    <GridSplitter Grid.Row="3" Height="5" ResizeDirection="Auto" HorizontalAlignment="Stretch" Background="LightGray" Margin="5" IsTabStop="False"/>
 
-                    <DataGrid ItemsSource="{Binding StationBoardRoot.Entries}" Grid.Row="4" Margin="5" CanUserAddRows="False" CanUserDeleteRows="False"/>
+                    <DataGrid ItemsSource="{Binding StationBoardRoot.Entries}" Grid.Row="4" Margin="5" 
+                              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True" IsTabStop="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Category" Binding="{Binding Category}"/>
+                            <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
+                            <DataGridTextColumn Header="To" Binding="{Binding To}"/>
+                            <DataGridTextColumn Header="Operator" Binding="{Binding Operator}"/>
+                            <DataGridTextColumn Header="Departure" Binding="{Binding Stop.Departure, StringFormat='hh:mm tt'}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
 
@@ -118,19 +129,18 @@
 
                     <ComboBox ItemsSource="{Binding StationSuggestion}" SelectedItem="{Binding SelectedSuggestion}" Text="{Binding StationName}" Height="30" Margin="5" IsEditable="True"/>
 
-                    <GridSplitter Grid.Column="1" Grid.RowSpan="2" Width="5" ResizeDirection="Auto" ResizeBehavior="PreviousAndNext" VerticalAlignment="Stretch" Background="LightGray" Margin="5"/>
+                    <Button Content="Search" Command="{Binding CommandSearchStation}" Grid.Column="2" Margin="5"/>
 
-                    <Button Content="Search" Command="{Binding CommandSearchStation}" Grid.Column="2" Margin="5" IsDefault="True"/>
 
                     <DataGrid ItemsSource="{Binding Stations.StationList}" SelectedItem="{Binding SelectedStation}" Grid.Row="1" Margin="5" 
-                              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True" IsTabStop="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
                     <DataGrid ItemsSource="{Binding StationBoardRoot.Entries}" Grid.Row="1" Grid.Column="2" Margin="5" 
-                              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True" IsTabStop="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="Category" Binding="{Binding Category}"/>
@@ -141,6 +151,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
+                    <GridSplitter Grid.Column="1" Grid.RowSpan="2" Width="5" ResizeDirection="Auto" ResizeBehavior="PreviousAndNext" VerticalAlignment="Stretch" Background="LightGray" Margin="5" IsTabStop="False"/>
 
                 </Grid>
             </TabItem>
